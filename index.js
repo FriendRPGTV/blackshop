@@ -26,25 +26,25 @@ bot.on("ready", () => {
     let sell = bot.users.get(seller);
     let adm = bot.users.get(admin);
     let scoreStores = '';
-    bot.channels.get('493277979074363394').fetchMessage('496976005903417344').then(message => {scoreStores = message.content;});
+    /*bot.channels.get('493277979074363394').fetchMessage('496976005903417344').then(message => {scoreStores = message.content;});
     let args = scoreStores.split(',,');
     for (let i = 1; i < args.length; i++)
     {
       setScore(args,i);
-    }
+    }*/
     scoreStore.ready = true;
-    scores = scoreStore.score;
+    //scores = scoreStore.score;
     console.log(scoreStore);
     chakung.send('__Back Shop Online__ '+(new Date));
-    sell.send('__Back Shop Online__ '+(new Date));
+    //sell.send('__Back Shop Online__ '+(new Date));
     adm.send('__Back Shop Online__ '+(new Date));
-    setInterval(function(){
+    /*setInterval(function(){
       let store = scoreStore.score+',,'+scoreStore.us1+',,'+scoreStore.us2+',,'+scoreStore.us3+',,'+scoreStore.us4+',,'+scoreStore.us5;
       bot.channels.get('493277979074363394').fetchMessage('496976005903417344').then(message => message.edit(store));
     }, 500000);
     setInterval(function(){
       bot.channels.get('493277979074363394').fetchMessage('510593716285865984').then(message => time = message);
-    }, 500000);
+    }, 500000);*/
 });
 function setScore(args,s) {
     if (s === 1)
