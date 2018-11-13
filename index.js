@@ -18,6 +18,9 @@ let scoreStore = {
 let cha = '291149768397422593';
 let admin = '502047145365471242';
 let seller = '502047145365471242';
+let database = '511870297155305482';
+let tableTime = '511873786497204234';
+let tableScore = '511873667261530112';
 let stock = '';
 bot.on("ready", () => {
     bot.user.setPresence({ game: { name: `คำสั่ง ${prefix}help | สร้างโดย Chakung#0785` }, type: 0 });
@@ -26,25 +29,25 @@ bot.on("ready", () => {
     let sell = bot.users.get(seller);
     let adm = bot.users.get(admin);
     let scoreStores = '';
-    /*bot.channels.get('493277979074363394').fetchMessage('496976005903417344').then(message => {scoreStores = message.content;});
+    bot.channels.get(database).fetchMessage(tableScore).then(message => {scoreStores = message.content;});
     let args = scoreStores.split(',,');
     for (let i = 1; i < args.length; i++)
     {
       setScore(args,i);
-    }*/
+    }
     scoreStore.ready = true;
-    //scores = scoreStore.score;
+    scores = scoreStore.score;
     console.log(scoreStore);
     chakung.send('__Back Shop Online__ '+(new Date));
     //sell.send('__Back Shop Online__ '+(new Date));
     adm.send('__Back Shop Online__ '+(new Date));
-    /*setInterval(function(){
-      let store = scoreStore.score+',,'+scoreStore.us1+',,'+scoreStore.us2+',,'+scoreStore.us3+',,'+scoreStore.us4+',,'+scoreStore.us5;
-      bot.channels.get('493277979074363394').fetchMessage('496976005903417344').then(message => message.edit(store));
-    }, 500000);
     setInterval(function(){
-      bot.channels.get('493277979074363394').fetchMessage('510593716285865984').then(message => time = message);
-    }, 500000);*/
+      let store = scoreStore.score+',,'+scoreStore.us1+',,'+scoreStore.us2+',,'+scoreStore.us3+',,'+scoreStore.us4+',,'+scoreStore.us5;
+      bot.channels.get(database).fetchMessage(tableScore).then(message => message.edit(store));
+    }, 5000);
+    setInterval(function(){
+      bot.channels.get(database).fetchMessage(tableTime).then(message => time = message);
+    }, 5000);
 });
 function setScore(args,s) {
     if (s === 1)
@@ -173,7 +176,7 @@ bot.on('message', message => {
         message.delete()
         if(!message.member.hasPermission(['ADMINISTRATOR']) && owner !== cha) return message.reply(`❌ คุณไม่ได้รับอนุญาติให้ใช้คำสั่ง ~~${message.content}~~`);
         time = args.join(' ');
-        bot.channels.get('493277979074363394').fetchMessage('510593716285865984').then(message => message.edit(time));
+        bot.channels.get(database).fetchMessage(tableTime).then(message => message.edit(time));
         const embed = new Discord.RichEmbed()
         .addField('Time setting','เวลา : '+time)
         .setColor(0xffffff)
@@ -191,7 +194,9 @@ bot.on('message', message => {
     if (command === 'setscore')
     {
         message.delete()
-        scores = args.join(' ');
+        let setscore = args.join(' ');
+        if (!setscore) return;
+        bot.channels.get(database).fetchMessage(tableScore).then(message => message.edit(setscore));
     }
     if (command === 'stock') {
         message.delete()
